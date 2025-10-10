@@ -1,26 +1,26 @@
 [
 	{
-		"gpx":"papazchair.gpx",
+		"gpx":"gpx/papazchair.gpx",
 		"name": "Папазчаир пасс",
 		"url": "https://meteo-ride.com/popovi-livadi-pass-route-198/"
 	},
 {
-		"gpx":"ribnovo-pass.gpx",
+		"gpx":"gpx/ribnovo-pass.gpx",
 		"name": "Рибново пасс",
 		"url": "https://meteo-ride.com/ribnovo-pass-edno-ot-nai-panoramnite-shose/"
 	},
 {
-		"gpx":"fargovo.gpx",
+		"gpx":"gpx/fargovo.gpx",
 		"name": "Фъргово пасс",
 		"url": "https://meteo-ride.com/route-1972-fargovo-pass/"
 	},
 {
-		"gpx":"sarnica.gpx",
+		"gpx":"gpx/sarnica.gpx",
 		"name": "Каратепе пасс",
 		"url": "https://meteo-ride.com/prohodat-karatepe-sarnica-velingrad/"
 	},
 {
-		"gpx":"beglika.gpx",
+		"gpx":"gpx/beglika.gpx",
 		"name": "яз. Батак - Доспад",
 		"url": "https://meteo-ride.com/dospatski-prohod-nai-dulgiat-prohod-v-bulgaria/"
 	}
