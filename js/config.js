@@ -1,6 +1,6 @@
 export const mapInit = {
     center: [42.13, 24.93],
-    zoom: 8    
+    zoom: 9    
 };
 
 export const mapTiles = {
@@ -15,6 +15,12 @@ export const mapTiles = {
         maxZoom: 17,
         attribution: 'Map data: &copy; <a href="https://kade.si/">BgMountains</a> contributors, ' +
                '<a href="https://kade.si/">BgMountains</a> (CC-BY-SA)'
+    },
+    osm:  {
+        url: "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        maxZoom: 17,
+        attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+               '<a href="https://www.openstreetmap.org/">OpenStreetMap</a> (CC-BY-SA)'
     }
 };
 

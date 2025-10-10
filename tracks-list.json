@@ -1,9 +1,11 @@
 [
+	{"// -------------------- ПИРИН --------------------------------   ": "" },
 	{
 		"gpx":"gpx/papazchair.gpx",
 		"name": "Папазчаир пасс",
 		"url": "https://meteo-ride.com/popovi-livadi-pass-route-198/"
 	},
+	{"// -------------------- РОДОПИ --------------------------------   ": "" },
 	{
 		"gpx":"gpx/ribnovo-pass.gpx",
 		"name": "Рибново пасс",
@@ -29,9 +31,36 @@
 		"name": "Пътят към Безводно",
 		"url": "https://meteo-ride.com/dajdovnitsa-komuniga-borovitsa-dam-pass/"
 	},
+	{"// -------------------- СТАРА ПЛАНИНА --------------------------------   ": "" },
 	{
 		"gpx":"gpx/beklemeto.gpx",
 		"name": "Троян - Кърнаре (Беклемето)",
 		"url": "https://meteo-ride.com/beklemeto-troqn-karnare-pass/"
+	},
+	{
+		"gpx":"gpx/bogoe.gpx",
+		"name": "Проход Богое",
+		"url": "https://meteo-ride.com/prohodat-bogoe-bogoe-pass-shipkovski-prohod/"
+	},
+	{"// ------------------- ГЪРЦИЯ --------------------------------   ": "" },
+	{
+		"gpx":"gpx/papigo.gpx",
+		"name": "Аристи - Папиго",
+		"url": "https://meteo-ride.com/road-to-papingo-national-park-vikos-aoos/"
+	},
+	{
+		"gpx":"gpx/bigla.gpx",
+		"name": "Проход Бигла",
+		"url": "https://meteo-ride.com/vigla-pass/"
+	},
+	{
+		"gpx":"gpx/baros.gpx",
+		"name": "Проход Барос",
+		"url": "https://meteo-ride.com/baros-pass-the-routes-in-south-pind/"
+	},
+	{
+		"gpx":"gpx/kotili.gpx",
+		"name": "Проход Котили",
+		"url": "https://meteo-ride.com/passo-kotili-zlatnoto-ukrashenie-na-nestram-i-gramos/"
 	}
 ]

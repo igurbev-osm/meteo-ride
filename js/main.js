@@ -4,11 +4,18 @@ import {intersects, bgBounds} from './utils.js';
 
 const map = L.map('map').setView(mapInit.center, mapInit.zoom);
 
-L.tileLayer(mapTiles.opentopo.url, 
+const mapLayer = mapTiles.osm;
+L.tileLayer(mapLayer.url, 
+  {
+      maxZoom: mapLayer.maxZoom,
+      attribution: mapLayer.attribution
+}	).addTo(map); 
+
+const openTopoMap = L.tileLayer(mapTiles.opentopo.url, 
   {
       maxZoom: mapTiles.opentopo.maxZoom,
       attribution: mapTiles.opentopo.attribution
-}	).addTo(map); 
+}	);
 
 const bgmMap = L.tileLayer(mapTiles.bgMountains.url, 
     {
@@ -125,13 +132,14 @@ function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; r
    });
  }
 
+const getZoom = _ => Math.round(map.getZoom()); 
+
  function displayValidTracks(){
     tracks.forEach(t => 
     {      
      const trackBounds = t.layer.getBounds();
-     const mapBounds = map.getBounds();
-     const zoomLevel = Math.round(map.getZoom());
-     if(intersects(mapBounds, trackBounds) && zoomLevel >= trackConf.showAtZoom ){
+     const mapBounds = map.getBounds();     
+     if(intersects(mapBounds, trackBounds) && getZoom() >= trackConf.showAtZoom ){
         map.addLayer(t.layer);
         renderTrackListItem(t);
      }else{
@@ -150,7 +158,7 @@ function debounce() {
   timer = setTimeout(() => {
      displayValidTracks();
      switchMap();
-  }, 300)
+  }, 300);
 }
 
  function readGpxFile(file, name, url){
@@ -186,19 +194,46 @@ function debounce() {
      ${statsText}<br>
      <a href="${t.url}" target="_blank">Статия</a>
    `;
-     
+    let popup =  t.layer.bindPopup(popupHtml);
     t.layer.on("click", () => {
        map.fitBounds(t.layer.getBounds());            
-       t.layer.bindPopup(popupHtml).openPopup();
-    });    
+       popup.openPopup();
+    });  
+    t.layer.on("mouseover", () => {    
+      if(getZoom() < 14){              
+        popup.openPopup();
+      }
+   });    
+    t.layer.on("mouseout", () => { 
+      setTimeout(() => {
+        popup.closePopup();
+     }, 1000);                 
+      
+   });    
  }
 
  function switchMap(){
-  const center = map.getCenter();
-  const zoomLevel = Math.round(map.getZoom());
-  if (bgBounds.contains(center) && zoomLevel >= 11) {
-    if (!map.hasLayer(bgmMap)) map.addLayer(bgmMap);
+  const center = map.getCenter();  
+  if (getZoom() >= 11) {
+      if(bgBounds.contains(center)){
+        if (!map.hasLayer(bgmMap)) {
+          map.addLayer(bgmMap);          
+        };
+        if (map.hasLayer(openTopoMap)) {
+          map.removeLayer(openTopoMap)
+        };
+      }else{
+        if (!map.hasLayer(openTopoMap)) {
+          map.addLayer(openTopoMap);          
+        };
+        if (map.hasLayer(bgmMap)) {
+          map.removeLayer(bgmMap)
+        };
+      }
+
+    
   } else {
     if (map.hasLayer(bgmMap)) map.removeLayer(bgmMap);
+    if (map.hasLayer(openTopoMap)) map.removeLayer(openTopoMap);
   }
  }
