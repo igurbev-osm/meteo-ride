@@ -1,6 +1,6 @@
 export const mapInit = {
-    center: [42.13, 24.93],
-    zoom: 9    
+    center: [42.75, 24.68],
+    zoom: 8    
 };
 
 export const mapTiles = {
@@ -29,5 +29,5 @@ export const trackListUrl = "tracks-list.json";
 export const trackConf = {
     weight: 6,
     opacity: 0.85,
-    showAtZoom: 9
+    showAtZoom: 8
 };
