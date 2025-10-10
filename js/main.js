@@ -1,4 +1,5 @@
-import { mapInit, mapTiles, trackListUrl } from './config.js';
+import { mapInit, mapTiles, trackListUrl, trackConf } from './config.js';
+import {intersects} from './utils.js';
 
 const tilesProvider = mapTiles.bgMountains;
 
@@ -16,7 +17,7 @@ readConfigFile();
 	
 console.log("read config end"); 
 
-const colors = ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc','#6a3d9a','#b15928','#a6cee3','#fb9a99'];
+const colors = ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc', '#fb9a99'];
 let colorIdx = 0;
 const tracks = []; // {id, title, layer, visible, color, stats}
 
@@ -100,33 +101,42 @@ function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; r
        return;
      }
 
-     const color = nextColor();
-   
-     const group = L.featureGroup();
-     lines.forEach(line => {
-       const latlngs = line.map(c => [c[1], c[0]]); // [lat,lon]
-       L.polyline(latlngs, { color, weight: 6, opacity: 0.85 }).addTo(group);
-       
-     });
-     group.addTo(map);
+     const color = nextColor();   
+      const group = L.featureGroup();
+      lines.forEach(line => {
+        const latlngs = line.map(c => [c[1], c[0]]); // [lat,lon]
+        L.polyline(latlngs, { color, weight: trackConf.weight, opacity: trackConf.opacity }).addTo(group);
+        
+      });
 
-   
      let totalDist = 0, totalAscent = 0;
      lines.forEach(line => {
        const s = computeStatsForCoords(line);
        totalDist += s.distance_m;
        totalAscent += s.ascent_m;
-     });
-
-          
+     });   
      const id = 't' + Date.now() + Math.round(Math.random()*10000);
-     tracks.push({ id, title: titleHint, url, layer: group, visible: true, color, stats: { distance_m: totalDist, ascent_m: totalAscent }, geojson: feat });
-
-     renderTrackListItem(id);
+     const track = { id, title: titleHint, url, layer: group, visible: true, color, stats: { distance_m: totalDist, ascent_m: totalAscent }, geojson: feat };
+     tracks.push(track);     
      
-     try { const b = group.getBounds(); if (b.isValid()) map.fitBounds(b, { padding: [30,30] }); } catch(e){/*ignore*/}
+     //try { const b = group.getBounds(); if (b.isValid()) map.fitBounds(b, { padding: [30,30] }); } catch(e){/*ignore*/}
 
    });
+ }
+
+ function displayValidTracks(){
+    tracks.forEach(t => 
+    {      
+     const trackBounds = t.layer.getBounds();
+     const mapBounds = map.getBounds();
+     const zoomLevel = Math.round(map.getZoom());
+     if(intersects(mapBounds, trackBounds) && zoomLevel >= trackConf.showAtZoom ){
+        map.addLayer(t.layer);
+        renderTrackListItem(t);
+     }else{
+        map.removeLayer(t.layer);
+     }
+    });
  }
 
  function formatNumber(n, digits) { return Number(n).toFixed(digits); }
@@ -141,36 +151,18 @@ function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; r
      
              const geojson = toGeoJSON.gpx(xml);
              addGeoJSON(geojson, name, url);
-         });		;
+         })
+         .then( _ => {
+          displayValidTracks();
+          map.on('moveend', () => displayValidTracks());
+         });
      
      }catch(e){
          console.log("rendering file error: " + e);
      }
  }
  
- function renderTrackListItem(id) {
-   const t = tracks.find(x => x.id === id);
-   if (!t) return;
-   
-   const el = document.createElement('div');
-   el.className = 'track-item';
-   el.id = 'item-' + id;
-
-   const left = document.createElement('div');
-   left.style.maxWidth = '70%';
-   const title = document.createElement('div');
-   title.className = 'track-title';
-   title.innerHTML = `<span class="color-dot" style="background:${t.color}"></span>${t.title}`;
-   title.onclick = () => {
-     try { map.fitBounds(t.layer.getBounds(), { padding: [40,40] }); 
-       // highlight
-       t.layer.eachLayer(l => (l.setStyle && l.setStyle({ color: '#FF3300' })));
-       setTimeout(()=> t.layer.eachLayer(l=> (l.setStyle && l.setStyle({ color: t.color }))), 700);
-     } catch(e){console.warn(e);}
-   };
-   left.appendChild(title);
-
-
+ function renderTrackListItem(t) {   
      
    const statsText = `${formatNumber(metersToKm(t.stats.distance_m), 2)} km — +${Math.round(t.stats.ascent_m)} m`;
          const popupHtml = `

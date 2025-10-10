@@ -28,5 +28,10 @@
 		"gpx":"gpx/bezvodno.gpx",
 		"name": "Пътят към Безводно",
 		"url": "https://meteo-ride.com/dajdovnitsa-komuniga-borovitsa-dam-pass/"
+	},
+	{
+		"gpx":"gpx/beklemeto.gpx",
+		"name": "Троян - Кърнаре (Беклемето)",
+		"url": "https://meteo-ride.com/beklemeto-troqn-karnare-pass/"
 	}
 ]
