@@ -1,21 +1,22 @@
 import { mapInit, mapTiles, trackListUrl, trackConf } from './config.js';
-import {intersects} from './utils.js';
+import {intersects, bgBounds} from './utils.js';
 
-const tilesProvider = mapTiles.bgMountains;
 
 const map = L.map('map').setView(mapInit.center, mapInit.zoom);
 
-L.tileLayer(tilesProvider.url, 
-    {
-        maxZoom: tilesProvider.maxZoom,
-        attribution: tilesProvider.attribution
+L.tileLayer(mapTiles.opentopo.url, 
+  {
+      maxZoom: mapTiles.opentopo.maxZoom,
+      attribution: mapTiles.opentopo.attribution
 }	).addTo(map); 
 
-console.log("main js ok")
+const bgmMap = L.tileLayer(mapTiles.bgMountains.url, 
+    {
+        maxZoom: mapTiles.bgMountains.maxZoom,
+        attribution: mapTiles.bgMountains.attribution
+}	); 
 
 readConfigFile();
-	
-console.log("read config end"); 
 
 const colors = ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc', '#fb9a99'];
 let colorIdx = 0;
@@ -142,6 +143,16 @@ function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; r
  function formatNumber(n, digits) { return Number(n).toFixed(digits); }
  function metersToKm(m) { return m/1000; }
 
+ let timer;
+
+function debounce() {
+  clearTimeout(timer)
+  timer = setTimeout(() => {
+     displayValidTracks();
+     switchMap();
+  }, 300)
+}
+
  function readGpxFile(file, name, url){
      try{
          fetch(file) 
@@ -154,7 +165,12 @@ function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; r
          })
          .then( _ => {
           displayValidTracks();
-          map.on('moveend', () => displayValidTracks());
+          map.on('zoomend', () => {
+            debounce();            
+          });
+          map.on('dragend', () => {
+            debounce();
+          });
          });
      
      }catch(e){
@@ -171,8 +187,18 @@ function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; r
      <a href="${t.url}" target="_blank">Статия</a>
    `;
      
-     t.layer.on("click", () => {
-     map.fitBounds(t.layer.getBounds());
-     t.layer.bindPopup(popupHtml).openPopup();
-   });
+    t.layer.on("click", () => {
+       map.fitBounds(t.layer.getBounds());            
+       t.layer.bindPopup(popupHtml).openPopup();
+    });    
+ }
+
+ function switchMap(){
+  const center = map.getCenter();
+  const zoomLevel = Math.round(map.getZoom());
+  if (bgBounds.contains(center) && zoomLevel >= 11) {
+    if (!map.hasLayer(bgmMap)) map.addLayer(bgmMap);
+  } else {
+    if (map.hasLayer(bgmMap)) map.removeLayer(bgmMap);
+  }
  }
