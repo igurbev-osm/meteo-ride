@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Meteo ride</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    body { margin:0; display:flex; height:100vh; font-family:Arial,Helvetica,sans-serif; }
+    #sidebar { width:20%; border-right:1px solid #ddd; padding:12px; overflow:auto; box-sizing:border-box; background:#fafafa;max-width: 300px;
+    min-width: 200px; display: none}
+    #map { flex:1; }
+    .track-item { padding:8px; border-bottom:1px solid #eee; cursor:default; display:flex; gap:8px; align-items:flex-start; }
+    .track-controls { margin-left:auto; display:flex; gap:6px; align-items:center; }
+    .track-title { font-size:small; cursor:pointer; }
+    .muted { color:#666; font-size:0.6em; }
+    .smallbtn { font-size:0.7em; padding:5px 8px; border:1px solid #ccc; background:#fff; cursor:pointer; border-radius:4px; }
+    input[type=file] { width:100%; }
+    #top-controls { display:flex; gap:8px; align-items:center; margin-bottom:8px; }
+    #urls { width:100%; box-sizing:border-box; }
+    .color-dot { width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:6px; vertical-align:middle; border:1px solid rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body>
+  <div id="sidebar">
+    <h3>Meteo ride</h3>
+
+
+    <div id="list" aria-live="polite"></div>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mapbox/togeojson@0.16.0/togeojson.min.js"></script>
+
+  <script>
+  
+    const map = L.map('map').setView([42.7, 23.3], 8);
+    L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+  maxZoom: 17,
+  attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+               '<a href="https://opentopomap.org/">OpenTopoMap</a> (CC-BY-SA)'
+}	).addTo(map);
+
+
+	
+	readConfigFile();
+	
+    
+    const listEl = document.getElementById('list');
+    const colors = ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc'];//,'#6a3d9a','#b15928','#a6cee3','#fb9a99'];
+    let colorIdx = 0;
+    const tracks = []; // {id, title, layer, visible, color, stats}
+
+    function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; return c; }
+
+	function readConfigFile(){
+		
+			fetch("config.json").then(response => {
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+			return response.json(); 
+			})
+			.then(data => {
+							data.forEach(t => readGpxFile(t.gpx, t.name, t.url));   
+				}).catch(error => {
+								console.error("Error fetching JSON:", error);
+							}
+				);		
+		
+	}
+  
+    function extractLineCoords(feature) {
+      
+      const geom = feature.geometry;
+      const coords = [];
+      if (!geom) return coords;
+      if (geom.type === 'LineString') coords.push(geom.coordinates);
+      else if (geom.type === 'MultiLineString') geom.coordinates.forEach(c => coords.push(c));
+      else if (geom.type === 'GeometryCollection' && geom.geometries) {
+        geom.geometries.forEach(g => {
+          if (g.type === 'LineString') coords.push(g.coordinates);
+          if (g.type === 'MultiLineString') g.coordinates.forEach(c=>coords.push(c));
+        });
+      }
+      return coords;
+    }
+
+    // --- Haversine distance between two latlon pairs (meters). Careful arithmetic.
+    function haversineDistance(lat1, lon1, lat2, lon2) {
+      // convert degrees to radians
+      const toRad = Math.PI / 180;
+      const φ1 = lat1 * toRad;
+      const φ2 = lat2 * toRad;
+      const Δφ = (lat2 - lat1) * toRad;
+      const Δλ = (lon2 - lon1) * toRad;
+      const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) * Math.sin(Δλ/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      const R = 6371000; // Earth radius in meters
+      return R * c;
+    }
+
+    
+    function computeStatsForCoords(coords) {
+      // coords = [[lon,lat,ele?], ...]
+      let dist = 0;
+      let ascent = 0;
+      for (let i = 1; i < coords.length; i++) {
+        const [lon1, lat1, ele1] = coords[i-1];
+        const [lon2, lat2, ele2] = coords[i];
+        const seg = haversineDistance(lat1, lon1, lat2, lon2);
+        dist += seg;
+        if (typeof ele1 === 'number' && typeof ele2 === 'number') {
+          const dE = ele2 - ele1;
+          if (dE > 0) ascent += dE;
+        }
+      }
+      return { distance_m: dist, ascent_m: ascent };
+    }
+
+    
+    function addGeoJSON(geojson, titleHint, url) {
+      
+      const features = (geojson.type === 'FeatureCollection') ? geojson.features : [geojson];
+      features.forEach((feat, idx) => {
+        
+        const lines = extractLineCoords(feat);
+        if (lines.length === 0) {
+        
+          return;
+        }
+
+        const color = nextColor();
+      
+        const group = L.featureGroup();
+        lines.forEach(line => {
+          const latlngs = line.map(c => [c[1], c[0]]); // [lat,lon]
+          L.polyline(latlngs, { color, weight: 6, opacity: 0.85 }).addTo(group);
+          
+        });
+        group.addTo(map);
+
+      
+        let totalDist = 0, totalAscent = 0;
+        lines.forEach(line => {
+          const s = computeStatsForCoords(line);
+          totalDist += s.distance_m;
+          totalAscent += s.ascent_m;
+        });
+
+        //const name = (feat.properties && (feat.properties.name || feat.properties['trk:name'] || feat.properties['title'])) || titleHint || `Track ${tracks.length+1}`;
+
+     
+        const id = 't' + Date.now() + Math.round(Math.random()*10000);
+        tracks.push({ id, title: titleHint, url, layer: group, visible: true, color, stats: { distance_m: totalDist, ascent_m: totalAscent }, geojson: feat });
+
+        renderTrackListItem(id);
+        
+        try { const b = group.getBounds(); if (b.isValid()) map.fitBounds(b, { padding: [30,30] }); } catch(e){/*ignore*/}
+
+      });
+    }
+
+    function formatNumber(n, digits) { return Number(n).toFixed(digits); }
+    function metersToKm(m) { return m/1000; }
+
+	function readGpxFile(file, name, url){
+		try{
+			fetch(file) 
+			.then(res => res.text())
+			.then(gpx => {
+				const xml = new DOMParser().parseFromString(gpx, "application/xml");
+		
+				const geojson = toGeoJSON.gpx(xml);
+				addGeoJSON(geojson, name, url);
+			});		;
+		
+		}catch(e){
+			console.log("rendering file error: " + e);
+		}
+	}
+    
+    function renderTrackListItem(id) {
+      const t = tracks.find(x => x.id === id);
+      if (!t) return;
+      const el = document.createElement('div');
+      el.className = 'track-item';
+      el.id = 'item-' + id;
+
+      const left = document.createElement('div');
+      left.style.maxWidth = '70%';
+      const title = document.createElement('div');
+      title.className = 'track-title';
+      title.innerHTML = `<span class="color-dot" style="background:${t.color}"></span>${t.title}`;
+	  title.onclick = () => {
+        try { map.fitBounds(t.layer.getBounds(), { padding: [40,40] }); 
+          // highlight
+          t.layer.eachLayer(l => (l.setStyle && l.setStyle({ color: '#FF3300' })));
+          setTimeout(()=> t.layer.eachLayer(l=> (l.setStyle && l.setStyle({ color: t.color }))), 700);
+        } catch(e){console.warn(e);}
+      };
+      left.appendChild(title);
+
+      const meta = document.createElement('div');
+      meta.className = 'muted';
+      meta.innerText = `${formatNumber(metersToKm(t.stats.distance_m), 2)} km — +${Math.round(t.stats.ascent_m)} m`;
+      left.appendChild(meta);
+
+      const controls = document.createElement('div');
+      controls.className = 'track-controls';
+
+      const vis = document.createElement('input');
+      vis.type = 'checkbox'; vis.checked = t.visible;
+      vis.title = 'Покажи/скрий';
+      vis.onchange = () => {
+        t.visible = vis.checked;
+        if (t.visible) t.layer.addTo(map); else map.removeLayer(t.layer);
+      };
+      controls.appendChild(vis);
+
+	  
+	  const btnArticle = document.createElement('button');
+      btnArticle.className = 'smallbtn';
+      btnArticle.title = 'Статия';
+      btnArticle.innerText = 'Статия';
+      btnArticle.onclick = () => {
+        window.open(t.url, "_blank");
+      };
+	  
+      controls.appendChild(btnArticle);
+      el.appendChild(left);
+      el.appendChild(controls);
+      listEl.appendChild(el);
+	  
+	//  t.layer.bindTooltip(t.title, {
+	//	  sticky: true
+	//	});
+		
+			const popupHtml = `
+        <b>${t.title}</b><br>
+        ${meta.innerText}<br>
+        <a href="${t.url}" target="_blank">Статия</a>
+      `;
+		
+		t.layer.on("click", () => {
+        map.fitBounds(t.layer.getBounds());
+        t.layer.bindPopup(popupHtml).openPopup();
+      });
+    }
+
+
+    
+    const info = document.createElement('div');
+    info.className = 'muted';
+    info.style.marginTop = '12px';
+    info.innerHTML = '';
+    listEl.parentElement.appendChild(info);
+  </script>
+</body>
+</html>
