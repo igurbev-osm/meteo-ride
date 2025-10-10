@@ -7,8 +7,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <style>
     body { margin:0; display:flex; height:100vh; font-family:Arial,Helvetica,sans-serif; }
-    #sidebar { width:20%; border-right:1px solid #ddd; padding:12px; overflow:auto; box-sizing:border-box; background:#fafafa;max-width: 300px;
-    min-width: 200px; display: none}
+
     #map { flex:1; }
     .track-item { padding:8px; border-bottom:1px solid #eee; cursor:default; display:flex; gap:8px; align-items:flex-start; }
     .track-controls { margin-left:auto; display:flex; gap:6px; align-items:center; }
@@ -22,12 +21,6 @@
   </style>
 </head>
 <body>
-  <div id="sidebar">
-    <h3>Meteo ride</h3>
-
-
-    <div id="list" aria-live="polite"></div>
-  </div>
 
   <div id="map"></div>
 
@@ -45,15 +38,15 @@
 
 
 	
-	readConfigFile();
+  readConfigFile();
 	
     
-    const listEl = document.getElementById('list');
-    const colors = ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc'];//,'#6a3d9a','#b15928','#a6cee3','#fb9a99'];
-    let colorIdx = 0;
-    const tracks = []; // {id, title, layer, visible, color, stats}
+   
+  const colors = ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc'];//,'#6a3d9a','#b15928','#a6cee3','#fb9a99'];
+  let colorIdx = 0;
+  const tracks = []; // {id, title, layer, visible, color, stats}
 
-    function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; return c; }
+  function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; return c; }
 
 	function readConfigFile(){
 		
@@ -68,8 +61,7 @@
 				}).catch(error => {
 								console.error("Error fetching JSON:", error);
 							}
-				);		
-		
+				);				
 	}
   
     function extractLineCoords(feature) {
@@ -152,9 +144,7 @@
           totalAscent += s.ascent_m;
         });
 
-        //const name = (feat.properties && (feat.properties.name || feat.properties['trk:name'] || feat.properties['title'])) || titleHint || `Track ${tracks.length+1}`;
-
-     
+             
         const id = 't' + Date.now() + Math.round(Math.random()*10000);
         tracks.push({ id, title: titleHint, url, layer: group, visible: true, color, stats: { distance_m: totalDist, ascent_m: totalAscent }, geojson: feat });
 
@@ -187,6 +177,7 @@
     function renderTrackListItem(id) {
       const t = tracks.find(x => x.id === id);
       if (!t) return;
+      
       const el = document.createElement('div');
       el.className = 'track-item';
       el.id = 'item-' + id;
@@ -205,44 +196,12 @@
       };
       left.appendChild(title);
 
-      const meta = document.createElement('div');
-      meta.className = 'muted';
-      meta.innerText = `${formatNumber(metersToKm(t.stats.distance_m), 2)} km — +${Math.round(t.stats.ascent_m)} m`;
-      left.appendChild(meta);
 
-      const controls = document.createElement('div');
-      controls.className = 'track-controls';
-
-      const vis = document.createElement('input');
-      vis.type = 'checkbox'; vis.checked = t.visible;
-      vis.title = 'Покажи/скрий';
-      vis.onchange = () => {
-        t.visible = vis.checked;
-        if (t.visible) t.layer.addTo(map); else map.removeLayer(t.layer);
-      };
-      controls.appendChild(vis);
-
-	  
-	  const btnArticle = document.createElement('button');
-      btnArticle.className = 'smallbtn';
-      btnArticle.title = 'Статия';
-      btnArticle.innerText = 'Статия';
-      btnArticle.onclick = () => {
-        window.open(t.url, "_blank");
-      };
-	  
-      controls.appendChild(btnArticle);
-      el.appendChild(left);
-      el.appendChild(controls);
-      listEl.appendChild(el);
-	  
-	//  t.layer.bindTooltip(t.title, {
-	//	  sticky: true
-	//	});
 		
+      const statsText = `${formatNumber(metersToKm(t.stats.distance_m), 2)} km — +${Math.round(t.stats.ascent_m)} m`;
 			const popupHtml = `
         <b>${t.title}</b><br>
-        ${meta.innerText}<br>
+        ${statsText}<br>
         <a href="${t.url}" target="_blank">Статия</a>
       `;
 		
@@ -251,14 +210,6 @@
         t.layer.bindPopup(popupHtml).openPopup();
       });
     }
-
-
-    
-    const info = document.createElement('div');
-    info.className = 'muted';
-    info.style.marginTop = '12px';
-    info.innerHTML = '';
-    listEl.parentElement.appendChild(info);
   </script>
 </body>
 </html>
