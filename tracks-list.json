@@ -42,6 +42,47 @@
 		"name": "Проход Богое",
 		"url": "https://meteo-ride.com/prohodat-bogoe-bogoe-pass-shipkovski-prohod/"
 	},
+	{
+		"gpx":"gpx/petrohan.gpx",
+		"name": "Петрохан",
+		"url": "https://meteo-ride.com/petrohan-pass/"
+	},
+	{
+		"gpx":"gpx/milanovo.gpx",
+		"name": "Пътят до Миланово",
+		"url": "https://meteo-ride.com/patjat-do-milanovo-drujevo-pass/"
+	},	
+	{
+		"gpx":"gpx/defile.gpx",
+		"name": "Искърско дефиле",
+		"url": "https://meteo-ride.com/iskarski-prolom-road-16/"
+	},
+	{
+		"gpx":"gpx/shipka.gpx",
+		"name": "Шипченски проход",
+		"url": "https://meteo-ride.com/shipka-pass/"
+	},
+	{"// ------------------- РИЛА --------------------------------   ": "" },
+	{
+		"gpx":"gpx/kalin.gpx",
+		"name": "яз. Калин",
+		"url": "https://meteo-ride.com/road-to-kalin-dam/"
+	},
+	{
+		"gpx":"gpx/padala.gpx",
+		"name": "Пътят до с.Падала",
+		"url": "https://meteo-ride.com/patqt-do-selo-padala-road-to-padala/"
+	},
+	{
+		"gpx":"gpx/belmeken.gpx",
+		"name": "яз. Белмекен",
+		"url": "https://meteo-ride.com/ushite-pass-road-to-belmeken/"
+	},
+	{
+		"gpx":"gpx/yundola.gpx",
+		"name": "Проход Юндола (от Велинград)",
+		"url": "https://meteo-ride.com/prohodat-yundola-pass-route-ii-84/"
+	},
 	{"// ------------------- ГЪРЦИЯ --------------------------------   ": "" },
 	{
 		"gpx":"gpx/papigo.gpx",

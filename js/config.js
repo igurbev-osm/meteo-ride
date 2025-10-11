@@ -29,5 +29,6 @@ export const trackListUrl = "tracks-list.json";
 export const trackConf = {
     weight: 6,
     opacity: 0.85,
-    showAtZoom: 8
+    showAtZoom: 8,
+    colors:  ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc', '#aa0e6eff']
 };

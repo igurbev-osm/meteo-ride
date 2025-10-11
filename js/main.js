@@ -25,11 +25,10 @@ const bgmMap = L.tileLayer(mapTiles.bgMountains.url,
 
 readConfigFile();
 
-const colors = ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc', '#fb9a99'];
 let colorIdx = 0;
 const tracks = []; // {id, title, layer, visible, color, stats}
 
-function nextColor() { const c = colors[colorIdx % colors.length]; colorIdx++; return c; }
+function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.length]; colorIdx++; return c; }
 
  function readConfigFile(){
      
