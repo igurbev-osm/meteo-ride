@@ -1,9 +1,24 @@
 [
-	{"// -------------------- ПИРИН --------------------------------   ": "" },
+	{"// -------------------- ПИРИН И ДРУГИ--------------------------------   ": "" },
 	{
-		"gpx":"gpx/papazchair.gpx",
-		"name": "Папазчаир пасс",
+		"gpx":"gpx/papazchai.gpx",
+		"name": "Проходът Попови ливади",
 		"url": "https://meteo-ride.com/popovi-livadi-pass-route-198/"
+	},
+	{
+		"gpx":"gpx/delchevo.gpx",
+		"name": "Пътят до Делчево",
+		"url": "https://meteo-ride.com/road-to-delchevo/"
+	},
+	{
+		"gpx":"gpx/ruenski-man.gpx",
+		"name": "Пътят до Руенския манастир",
+		"url": "https://meteo-ride.com/patqt-do-ruenskij-manastir/"
+	},
+	{
+		"gpx":"gpx/klepalo.gpx",
+		"name": "Пътят до Клепало",
+		"url": "https://meteo-ride.com/road-1008-edno-ot-nai-panoramnite-v-bulgaria/"
 	},
 	{"// -------------------- РОДОПИ --------------------------------   ": "" },
 	{
@@ -13,12 +28,12 @@
 	},
 	{
 		"gpx":"gpx/fargovo.gpx",
-		"name": "Фъргово пасс",
+		"name": "Проход Фъргово",
 		"url": "https://meteo-ride.com/route-1972-fargovo-pass/"
 	},
 	{
 		"gpx":"gpx/sarnica.gpx",
-		"name": "Каратепе пасс",
+		"name": "Проход Каратепе",
 		"url": "https://meteo-ride.com/prohodat-karatepe-sarnica-velingrad/"
 	},
 	{
@@ -30,6 +45,57 @@
 		"gpx":"gpx/bezvodno.gpx",
 		"name": "Пътят към Безводно",
 		"url": "https://meteo-ride.com/dajdovnitsa-komuniga-borovitsa-dam-pass/"
+	},
+	{
+		"gpx":"gpx/rancha.gpx",
+		"name": "Ранчанска седловина",
+		"url": "https://meteo-ride.com/rancha-saddle/"
+	},
+	{
+		"gpx":"gpx/rozhen.gpx",
+		"name": "Роженски проход",
+		"url": "https://meteo-ride.com/rozhen-pass-and-nao-rozhen/"
+	},
+	{
+		"gpx":"gpx/satovcha.gpx",
+		"name": "Сатовчански проход",
+		"url": "https://meteo-ride.com/satovcha-pass/"
+	},
+	{
+		"gpx":"gpx/krastova-gora.gpx",
+		"name": "Кръстова гора",
+		"url": "https://meteo-ride.com/%d0%ba%d1%80%d1%8a%d1%81%d1%82%d0%be%d0%b2%d0%b0-%d0%b3%d0%be%d1%80%d0%b0/"
+	},
+	{
+		"gpx":"gpx/tsepina.gpx",
+		"name": "Пътят до крепостта Цепина",
+		"url": "https://meteo-ride.com/road-to-the-cepina-fortress/"
+	},
+	{
+		"gpx":"gpx/fotinovski.gpx",
+		"name": "Фотиновски проход",
+		"url": "https://meteo-ride.com/fotinovski-prohod-edin-ot-nai-visokite-v-bulgaria-1801-m/"
+	},
+	{
+		"gpx":"gpx/krichim-devin.gpx",
+		"name": "Кричим – Девин",
+		"url": "https://meteo-ride.com/krichim-devin/"
+	},
+	{
+		"gpx":"gpx/buynovo.gpx",
+		"name": "Буйновско ждрело",
+		"url": "https://meteo-ride.com/buynovsko-gorge/"
+	},
+	{
+		"gpx":"gpx/mochura.gpx",
+		"name": "Пътят до с.Мочура",
+		"url": "https://meteo-ride.com/serpentines-mochura-8608/"
+	},
+	{"// -------------------- СРЕДНА ГОРА --------------------------------   ": "" },
+	{
+		"gpx":"gpx/panagyurski-kolonii.gpx",
+		"name": "Панагюрски колонии",
+		"url": "https://meteo-ride.com/panagyurski-kolonii/"
 	},
 	{"// -------------------- СТАРА ПЛАНИНА --------------------------------   ": "" },
 	{

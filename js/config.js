@@ -27,8 +27,8 @@ export const mapTiles = {
 export const trackListUrl = "tracks-list.json";
 
 export const trackConf = {
-    weight: 6,
-    opacity: 0.85,
+    weight: 4,
+    opacity: 0.9,
     showAtZoom: 8,
     colors:  ['#FF0000','#03fcfc','#fca503','#03fc5e','#034efc', '#aa0e6eff']
 };
