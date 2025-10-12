@@ -39,7 +39,7 @@ function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.le
          return response.json(); 
          })
          .then(data => {
-                         data.forEach(t => readGpxFile(t.gpx, t.name, t.url));   
+                         data.forEach(t => readGpxFile(t.gpx, t.name, t.url, t.start));   
              }).catch(error => {
                              console.error("Error fetching JSON:", error);
                          }
@@ -129,7 +129,7 @@ function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.le
  }
 
  
- function addGeoJSON(geojson, titleHint, url) {
+ function addGeoJSON(geojson, titleHint, url, startPoint) {
    
    const features = (geojson.type === 'FeatureCollection') ? geojson.features : [geojson];
    features.forEach((feat, idx) => {
@@ -155,7 +155,7 @@ function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.le
        totalAscent += s.ascent_m;
      });   
      const id = 't' + Date.now() + Math.round(Math.random()*10000);
-     const track = { id, title: titleHint, url, layer: group, visible: true, color, stats: { distance_m: totalDist, ascent_m: totalAscent }, geojson: feat };
+     const track = { id, title: titleHint, url, layer: group, visible: true, color, stats: { distance_m: totalDist, ascent_m: totalAscent }, geojson: feat, startPoint: startPoint };
      tracks.push(track);     
      
      //try { const b = group.getBounds(); if (b.isValid()) map.fitBounds(b, { padding: [30,30] }); } catch(e){/*ignore*/}
@@ -192,7 +192,7 @@ function debounce() {
   }, 300);
 }
 
- function readGpxFile(file, name, url){
+ function readGpxFile(file, name, url, startPoint){
      try{
          fetch(file) 
          .then(res => res.text())
@@ -200,7 +200,7 @@ function debounce() {
              const xml = new DOMParser().parseFromString(gpx, "application/xml");
      
              const geojson = toGeoJSON.gpx(xml);
-             addGeoJSON(geojson, name, url);
+             addGeoJSON(geojson, name, url, startPoint);
          })
          .then( _ => {
           displayValidTracks();
@@ -220,11 +220,16 @@ function debounce() {
  function renderTrackListItem(t) {   
      
    const statsText = `${formatNumber(metersToKm(t.stats.distance_m), 2)} km — +${Math.round(t.stats.ascent_m)} m`;
-         const popupHtml = `
+         
+    
+   const popupHtml = `
      <b>${t.title}</b><br>
      ${statsText}<br>
-     <a href="${t.url}" target="_blank">Статия</a>
-   `;
+     <a href="${t.url}" target="_blank">Статия</a>   
+    ` + (t.startPoint ? `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${t.startPoint}" target="_blank">Стартова точка</a>` : "");
+
+
+
     let popup;
     t.layer.on("click", (е) => {
        map.fitBounds(t.layer.getBounds());                   

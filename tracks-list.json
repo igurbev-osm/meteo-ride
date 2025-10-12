@@ -1,9 +1,10 @@
 [
 	{"// -------------------- ПИРИН И ДРУГИ--------------------------------   ": "" },
 	{
-		"gpx":"gpx/papazchai.gpx",
+		"gpx":"gpx/papazchair.gpx",
 		"name": "Проходът Попови ливади",
-		"url": "https://meteo-ride.com/popovi-livadi-pass-route-198/"
+		"url": "https://meteo-ride.com/popovi-livadi-pass-route-198/",
+		"start":"41.5008678431033, 23.50213008178905"
 	},
 	{
 		"gpx":"gpx/delchevo.gpx",
