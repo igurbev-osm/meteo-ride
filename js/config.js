@@ -1,6 +1,7 @@
 export const mapInit = {
-    center: [42.75, 24.68],
-    zoom: 8    
+    center: [42.69, 23.99],
+    zoom: 8,
+    mapSwitchZoom: 11    
 };
 
 export const mapTiles = {

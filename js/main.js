@@ -46,6 +46,38 @@ function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.le
              );				
  }
 
+  let locationMarker = null;
+    let locationCircle = null;
+
+    const checkbox = document.getElementById('showLocation');
+
+    checkbox.addEventListener('change', function () {
+      if (this.checked) {
+        map.locate({ setView: true, watch: true, enableHighAccuracy: true });
+        map.on('locationfound', onLocationFound);
+        map.on('locationerror', onLocationError);
+      } else {
+        map.stopLocate();
+        map.off('locationfound', onLocationFound);
+        map.off('locationerror', onLocationError);
+        if (locationMarker) map.removeLayer(locationMarker);
+        if (locationCircle) map.removeLayer(locationCircle);
+      }
+    });
+
+    function onLocationFound(e) {
+      if (locationMarker) map.removeLayer(locationMarker);
+      if (locationCircle) map.removeLayer(locationCircle);
+
+      locationMarker = L.marker(e.latlng).addTo(map);
+      locationCircle = L.circle(e.latlng, { radius: e.accuracy / 2 }).addTo(map);
+    }
+
+    function onLocationError(e) {
+      alert("Не може да се определи местоположението.");
+      checkbox.checked = false;
+    }
+
  function extractLineCoords(feature) {
    
    const geom = feature.geometry;
@@ -220,7 +252,7 @@ function debounce() {
 
  function switchMap(){
   const center = map.getCenter();  
-  if (getZoom() >= 11) {
+  if (getZoom() >= mapInit.mapSwitchZoom) {
       if(bgBounds.contains(center)){
         if (!map.hasLayer(bgmMap)) {
           map.addLayer(bgmMap);          
