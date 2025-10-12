@@ -53,7 +53,7 @@ function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.le
 
     checkbox.addEventListener('change', function () {
       if (this.checked) {
-        map.locate({ setView: true, watch: true, enableHighAccuracy: true });
+        map.locate({ setView: true, watch: mapInit.followLocation, enableHighAccuracy: true });
         map.on('locationfound', onLocationFound);
         map.on('locationerror', onLocationError);
       } else {

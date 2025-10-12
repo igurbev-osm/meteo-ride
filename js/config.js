@@ -1,7 +1,8 @@
 export const mapInit = {
     center: [42.69, 23.99],
     zoom: 8,
-    mapSwitchZoom: 11    
+    mapSwitchZoom: 11,
+    followLocation: false    
 };
 
 export const mapTiles = {
