@@ -193,22 +193,29 @@ function debounce() {
      ${statsText}<br>
      <a href="${t.url}" target="_blank">Статия</a>
    `;
-    let popup =  t.layer.bindPopup(popupHtml);
-    t.layer.on("click", () => {
-       map.fitBounds(t.layer.getBounds());            
-       popup.openPopup();
+    let popup;
+    t.layer.on("click", (е) => {
+       map.fitBounds(t.layer.getBounds());                   
+       popup = openPopup(e, popupHtml);
     });  
-    t.layer.on("mouseover", () => {    
+    t.layer.on("mouseover", (e) => {    
       if(getZoom() < 14){              
-        popup.openPopup();
+        popup = openPopup(e, popupHtml);
       }
    });    
-    t.layer.on("mouseout", () => { 
-      setTimeout(() => {
-        popup.closePopup();
-     }, 1000);                 
-      
-   });    
+    // t.layer.on("mouseout", () => { 
+    //   setTimeout(() => {
+    //     popup.closePopup();
+    //  }, 1000);                       
+    // });    
+ }
+
+ function openPopup(e, popupHtml){
+  const popup = L.popup()
+    .setLatLng(e.latlng) 
+    .setContent(popupHtml)
+    .openOn(map);  
+    return popup;
  }
 
  function switchMap(){

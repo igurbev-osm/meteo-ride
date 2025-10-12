@@ -168,6 +168,26 @@
 	{
 		"gpx":"gpx/kotili.gpx",
 		"name": "Проход Котили",
-		"url": "https://meteo-ride.com/passo-kotili-zlatnoto-ukrashenie-na-nestram-i-gramos/"
+		"url": "https://meteo-ride.com/passo-kotili-zlatnoto-ukrashenie-na-nestram-i-gramos/"	
+	},
+	{
+		"gpx":"gpx/agalis.gpx",
+		"name": "Проход Агалис",
+		"url": "https://meteo-ride.com/agalis-pass-skritiqt-pat-na-evboa/"
+	},
+	{
+		"gpx":"gpx/veluhi.gpx",
+		"name": "Проход Велухи",
+		"url": "https://meteo-ride.com/velouchi-pass-parvenecat-na-evritania-grackiqt-transfagarasan/"
+	},
+	{
+		"gpx":"gpx/voras.gpx",
+		"name": "Проход Ворас",
+		"url": "https://meteo-ride.com/voras-pass/"
+	},
+	{
+		"gpx":"gpx/gramos.gpx",
+		"name": "Проход Грамос",
+		"url": "https://meteo-ride.com/gramos-pass-divata-krasoata-na-granichnata-planina/"
 	}
 ]
