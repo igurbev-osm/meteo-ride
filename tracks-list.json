@@ -190,5 +190,29 @@
 		"gpx":"gpx/gramos.gpx",
 		"name": "Проход Грамос",
 		"url": "https://meteo-ride.com/gramos-pass-divata-krasoata-na-granichnata-planina/"
+	},
+	{
+		"gpx":"gpx/plaka.gpx",
+		"name": "Проход Плака",
+		"url": "https://meteo-ride.com/plaka-pass-qz-plastira-vragiana/",
+		"start": "39.25384509640929, 21.715156113028296"
+	},
+	{
+		"gpx":"gpx/niala.gpx",
+		"name": "Проход Ниала",
+		"url": "https://meteo-ride.com/nyala-pass-agrafa-surovoto-izpitania/",
+		"start": "39.21737668380583, 21.671425891761732"
+	},
+	{
+		"gpx":"gpx/kaliakuda.gpx",
+		"name": "Проход Калиакуда",
+		"url": "https://meteo-ride.com/legendarniat-prohod-kaliakouda-pass-74-extremni-zavoi/",
+		"start": "38.8071583210408, 21.766866243157462"
+	},
+	{
+		"gpx":"gpx/kymi.gpx",
+		"name": "Пътят до Кими",
+		"url": "https://meteo-ride.com/route-to-kimi-kimi-pass/",
+		"start": "38.59953476578371, 23.877631561568712"
 	}
 ]
