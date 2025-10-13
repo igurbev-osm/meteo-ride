@@ -373,8 +373,57 @@
 	},
 	{
 		"gpx": "gpx/kapsodasos.gpx",
-		"name": "Капсодасос – Каликратис",
+		"name": "Капсодасос - Каликратис",
 		"url": "https://meteo-ride.com/the-road-from-kapsodasos-to-kallikratis/",
 		"start": "35.2042850324187, 24.236250658905135"
+	},
+	{
+		"gpx": "gpx/tira.gpx",
+		"name": "Пътят до Древна Тира",
+		"url": "https://meteo-ride.com/ancient-thera-road/",
+		"start": "36.372765418056254, 25.47914138809623"
+	},
+		{"// ------------------- ГЪРЦИЯ --------------------------------   ": "" },
+	{
+		"gpx": "gpx/sh21.gpx",
+		"name": "SH21 - Чафа е Торес",
+		"url": "https://meteo-ride.com/prohodat-tores-qafa-terthores-np-theti/",
+		"start": "42.224472293040066, 19.46849676683507"
+	},
+	{
+		"gpx": "gpx/valbona.gpx",
+		"name": "Долината на Валбона",
+		"url": "https://meteo-ride.com/patqt-prez-dolinata-valbona/",
+		"start": "42.26407969031471, 20.003664440024924"
+	},
+	{
+		"gpx": "gpx/luzha.gpx",
+		"name": "Проход Лужа(SH23)",
+		"url": "https://meteo-ride.com/luzha-pass-qafa-e-luzhes-panorfamata-kam-kotlovinata-tropoj/",
+		"start": "42.25571771998034, 20.37143468760433"
+	},
+	{
+		"gpx": "gpx/muzines.gpx",
+		"name": "Проход Музинес",
+		"url": "https://meteo-ride.com/muzines-pass-sh78-qafa-e-muzines/",
+		"start": "39.924322159467515, 20.191800817187758"	
+	},
+	{
+		"gpx": "gpx/sh22sh23.gpx",
+		"name": "Шосета SH22 и SH23",
+		"url": "https://meteo-ride.com/sh22-sh23/",
+		"start": "42.08088529368236, 20.422608570119287"
+	},
+	{
+		"gpx": "gpx/sh20.gpx",
+		"name": "Шосе SH20",
+		"url": "https://meteo-ride.com/sh20-hani-i-hotit/",
+		"start": "42.33621922160641, 19.435306701212944"
+	},
+	{
+		"gpx": "gpx/logara.gpx",
+		"name": "Проход Логара",
+		"url": "https://meteo-ride.com/llogara-pass/",
+		"start": "40.24711763984487, 19.546302642365696"
 	}
 ]
