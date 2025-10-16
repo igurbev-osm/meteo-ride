@@ -224,9 +224,9 @@ function debounce() {
     
    const popupHtml = `
      <b>${t.title}</b><br>
-     ${statsText}<br>
-     <a href="${t.url}" target="_blank">Статия</a>   
-    ` + (t.startPoint ? `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${t.startPoint}" target="_blank">Стартова точка</a>` : "");
+     ${statsText}`
+	 + (t.url ?  `<br><a href="${t.url}" target="_blank">Статия</a>` : "" ) 
+     + (t.startPoint ? `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${t.startPoint}" target="_blank">Стартова точка</a>` : "");
 
 
 
@@ -235,11 +235,10 @@ function debounce() {
        map.fitBounds(t.layer.getBounds());                   
        popup = openPopup(e, popupHtml);
     });  
-    t.layer.on("mouseover", (e) => {    
-      if(getZoom() < 14){              
-        popup = openPopup(e, popupHtml);
-      }
-   });    
+     t.layer.on("mouseover", (e) => {
+         popup = openPopup(e, popupHtml);
+     });   
+     
     // t.layer.on("mouseout", () => { 
     //   setTimeout(() => {
     //     popup.closePopup();
