@@ -47,3 +47,19 @@ export const sleep = (ms) => {
    }
    return { distance_m: dist, ascent_m: ascent };
  }
+
+ export const getStartPointFromGeoJSON = (geojson) => {
+    if (!geojson || !geojson.features || geojson.features.length === 0) {
+        return null;
+    }
+
+    const coords = geojson.features[0].geometry.coordinates;
+
+    if (!coords || coords.length === 0) {
+        return null;
+    }
+
+    const [lon, lat] = coords[0];   // GeoJSON = [longitude, latitude]
+
+    return `${lat}, ${lon}`;
+}

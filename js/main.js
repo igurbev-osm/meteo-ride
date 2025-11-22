@@ -1,5 +1,5 @@
 import { mapInit, mapTiles, trackListUrl, trackConf } from './config.js';
-import {intersects, bgBounds, sleep, computeStatsForCoords} from './utils.js';
+import {intersects, bgBounds, sleep, computeStatsForCoords, getStartPointFromGeoJSON} from './utils.js';
 
 
 const map = L.map('map').setView(mapInit.center, mapInit.zoom);
@@ -104,6 +104,7 @@ const checkbox = document.getElementById('showLocation');
  function addGeoJSON(geojson, titleHint, url, startPoint) {
    
    const features = (geojson.type === 'FeatureCollection') ? geojson.features : [geojson];
+   startPoint = startPoint || getStartPointFromGeoJSON(geojson);
    features.forEach((feat, idx) => {
      
      const lines = extractLineCoords(feat);
