@@ -26,7 +26,7 @@ export const mapTiles = {
     }
 };
 
-export const trackListUrl = "tracks-list.json";
+export const trackListUrl = "https://tracks.igurbev.net/api/tracklist/2";
 
 export const trackConf = {
     weight: 4,

@@ -1,9 +1,8 @@
 import { mapInit, mapTiles, trackListUrl, trackConf } from './config.js';
-import {intersects, bgBounds} from './utils.js';
+import {intersects, bgBounds, sleep, computeStatsForCoords} from './utils.js';
 
 
 const map = L.map('map').setView(mapInit.center, mapInit.zoom);
-
 const mapLayer = mapTiles.osm;
 L.tileLayer(mapLayer.url, 
   {
@@ -23,33 +22,40 @@ const bgmMap = L.tileLayer(mapTiles.bgMountains.url,
         attribution: mapTiles.bgMountains.attribution
 }	); 
 
-readConfigFile();
+(async _ => await readConfigFile())();
 
 let colorIdx = 0;
 const tracks = []; // {id, title, layer, visible, color, stats}
 
-function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.length]; colorIdx++; return c; }
+const nextColor = (trackConf) => { const c = trackConf.colors[colorIdx % trackConf.colors.length]; colorIdx++; return c; }
 
- function readConfigFile(){
-     
-         fetch(trackListUrl).then(response => {
-             if (!response.ok) {
-                 throw new Error("Network response was not ok");
-             }
-         return response.json(); 
-         })
-         .then(data => {
-                         data.forEach(t => readGpxFile(t.gpx, t.name, t.url, t.start));   
-             }).catch(error => {
-                             console.error("Error fetching JSON:", error);
-                         }
-             );				
- }
+readConfigFile();
 
-  let locationMarker = null;
-    let locationCircle = null;
 
-    const checkbox = document.getElementById('showLocation');
+async function readConfigFile() {
+    try {
+        const res = await fetch(trackListUrl);
+
+        if (!res.ok) {
+            throw new Error("Network response was not ok");
+        }
+
+        const data = await res.json();
+ 
+        for (const t of data) {
+            await readGpxFile(t.gpx, t.name, t.url, t.start);
+            await sleep(200);  // важна пауза за да не убие сървъра
+        }
+
+    } catch (error) {
+        console.error("Error fetching JSON:", error);
+    }
+}
+
+let locationMarker = null;
+let locationCircle = null;
+
+const checkbox = document.getElementById('showLocation');
 
     checkbox.addEventListener('change', function () {
       if (this.checked) {
@@ -93,41 +99,7 @@ function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.le
    }
    return coords;
  }
-
- // --- Haversine distance between two latlon pairs (meters). Careful arithmetic.
- function haversineDistance(lat1, lon1, lat2, lon2) {
-   // convert degrees to radians
-   const toRad = Math.PI / 180;
-   const φ1 = lat1 * toRad;
-   const φ2 = lat2 * toRad;
-   const Δφ = (lat2 - lat1) * toRad;
-   const Δλ = (lon2 - lon1) * toRad;
-   const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-             Math.cos(φ1) * Math.cos(φ2) *
-             Math.sin(Δλ/2) * Math.sin(Δλ/2);
-   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-   const R = 6371000; // Earth radius in meters
-   return R * c;
- }
-
  
- function computeStatsForCoords(coords) {
-   // coords = [[lon,lat,ele?], ...]
-   let dist = 0;
-   let ascent = 0;
-   for (let i = 1; i < coords.length; i++) {
-     const [lon1, lat1, ele1] = coords[i-1];
-     const [lon2, lat2, ele2] = coords[i];
-     const seg = haversineDistance(lat1, lon1, lat2, lon2);
-     dist += seg;
-     if (typeof ele1 === 'number' && typeof ele2 === 'number') {
-       const dE = ele2 - ele1;
-       if (dE > 0) ascent += dE;
-     }
-   }
-   return { distance_m: dist, ascent_m: ascent };
- }
-
  
  function addGeoJSON(geojson, titleHint, url, startPoint) {
    
@@ -140,7 +112,7 @@ function nextColor() { const c = trackConf.colors[colorIdx % trackConf.colors.le
        return;
      }
 
-     const color = nextColor();   
+     const color = nextColor(trackConf);   
       const group = L.featureGroup();
       lines.forEach(line => {
         const latlngs = line.map(c => [c[1], c[0]]); // [lat,lon]
@@ -192,30 +164,23 @@ function debounce() {
   }, 300);
 }
 
- function readGpxFile(file, name, url, startPoint){
-     try{
-         fetch(file) 
-         .then(res => res.text())
-         .then(gpx => {
-             const xml = new DOMParser().parseFromString(gpx, "application/xml");
-     
-             const geojson = toGeoJSON.gpx(xml);
-             addGeoJSON(geojson, name, url, startPoint);
-         })
-         .then( _ => {
-          displayValidTracks();
-          map.on('zoomend', () => {
-            debounce();            
-          });
-          map.on('dragend', () => {
-            debounce();
-          });
-         });
-     
-     }catch(e){
-         console.log("rendering file error: " + e);
-     }
- }
+async function readGpxFile(file, name, url, startPoint) {
+    try {
+ 
+        const res = await fetch(file); 
+        const gpx = await res.text(); 
+        const xml = new DOMParser().parseFromString(gpx, "application/xml");        
+        const geojson = toGeoJSON.gpx(xml);
+        
+        addGeoJSON(geojson, name, url, startPoint);        
+        displayValidTracks();        
+        map.on("zoomend", () => debounce());
+        map.on("dragend", () => debounce());
+
+    } catch (e) {
+        console.error("rendering file error:", e);
+    }
+}
  
  function renderTrackListItem(t) {   
      
