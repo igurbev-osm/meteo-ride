@@ -29,8 +29,6 @@ const tracks = []; // {id, title, layer, visible, color, stats}
 
 const nextColor = (trackConf) => { const c = trackConf.colors[colorIdx % trackConf.colors.length]; colorIdx++; return c; }
 
-readConfigFile();
-
 
 async function readConfigFile() {
     try {
@@ -41,10 +39,16 @@ async function readConfigFile() {
         }
 
         const data = await res.json();
+        
+        const total = data.length;
+        let current = 0;
+        updateProgress(0, total);
  
         for (const t of data) {
             await readGpxFile(t.gpx, t.name, t.url, t.start);
-            await sleep(200);  // важна пауза за да не убие сървъра
+            current++;
+            updateProgress(current, total);
+            await sleep(1); 
         }
 
     } catch (error) {
@@ -191,8 +195,8 @@ async function readGpxFile(file, name, url, startPoint) {
    const popupHtml = `
      <b>${t.title}</b><br>
      ${statsText}<br>
-     <a href="${t.url}" target="_blank">Статия</a>   
-    ` + (t.startPoint ? `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${t.startPoint}" target="_blank">Стартова точка</a>` : "");
+    `  + (t.url ?  `<a href="${t.url}" target="_blank">Статия</a>` : "") 
+     + (t.startPoint ? `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${t.startPoint}" target="_blank">Стартова точка</a>` : "");
 
 
 
@@ -246,3 +250,16 @@ async function readGpxFile(file, name, url, startPoint) {
     if (map.hasLayer(openTopoMap)) map.removeLayer(openTopoMap);
   }
  }
+
+ function updateProgress(current, total) {
+    const percent = Math.round((current / total) * 100);
+
+    document.getElementById("map-loader").style.display = "flex";
+    document.getElementById("loader-percent").innerText = percent + "%";
+
+    if (percent >= 100) {
+        setTimeout(() => {
+            document.getElementById("map-loader").style.display = "none";
+        }, 300);
+    }
+}
