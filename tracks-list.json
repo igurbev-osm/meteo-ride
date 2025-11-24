@@ -1,101 +1,107 @@
 [
-	{"// -------------------- ПИРИН И ДРУГИ--------------------------------   ": "" },
+	{ "// -------------------- ПИРИН И ДРУГИ--------------------------------   ": "" },
 	{
-		"gpx":"gpx/papazchair.gpx",
+		"gpx": "gpx/papazchair.gpx",
 		"name": "Проходът Попови ливади",
 		"url": "https://meteo-ride.com/popovi-livadi-pass-route-198/",
-		"start":"41.5008678431033, 23.50213008178905"
+		"start": "41.5008678431033, 23.50213008178905"
 	},
 	{
-		"gpx":"gpx/delchevo.gpx",
+		"gpx": "gpx/delchevo.gpx",
 		"name": "Пътят до Делчево",
 		"url": "https://meteo-ride.com/road-to-delchevo/",
-		"start":""
+		"start": "41.56883859304773, 23.715523477083487"
 	},
 	{
 		"gpx": "gpx/ruenski-man.gpx",
 		"name": "Пътят до Руенския манастир",
 		"url": "https://meteo-ride.com/patqt-do-ruenskij-manastir/",
-		"start": ""
+		"start": "42.1660945805958, 22.995415958351455"
 	},
 	{
 		"gpx": "gpx/klepalo.gpx",
 		"name": "Пътят до Клепало",
 		"url": "https://meteo-ride.com/road-1008-edno-ot-nai-panoramnite-v-bulgaria/",
-		"start": ""
+		"start": "41.620727945170884, 23.1953687105837"
 	},
-	{"// -------------------- РОДОПИ --------------------------------   ": "" },
+	{
+		"gpx": "gpx/parilska.gpx",
+		"name": "Парилска седловина",
+		"url": "https://meteo-ride.com/paril-saddle/",
+		"start": "41.43456277000948, 23.592008425208682"
+	},
+	{ "// -------------------- РОДОПИ --------------------------------   ": "" },
 	{
 		"gpx": "gpx/ribnovo-pass.gpx",
-		"name": "Рибново пасс",
+		"name": "Проход Рибново",
 		"url": "https://meteo-ride.com/ribnovo-pass-edno-ot-nai-panoramnite-shose/",
-		"start": ""
+		"start": "41.76595454799278, 23.671822680769925"
 	},
 	{
 		"gpx": "gpx/fargovo.gpx",
 		"name": "Проход Фъргово",
 		"url": "https://meteo-ride.com/route-1972-fargovo-pass/",
-		"start": ""
+		"start": "41.61270095132912, 23.996167055165127"
 	},
 	{
 		"gpx": "gpx/sarnica.gpx",
 		"name": "Проход Каратепе",
 		"url": "https://meteo-ride.com/prohodat-karatepe-sarnica-velingrad/",
-		"start": ""
+		"start": "41.74357691058943, 24.014177046782386"
 	},
 	{
 		"gpx": "gpx/beglika.gpx",
 		"name": "яз. Батак - Доспад",
 		"url": "https://meteo-ride.com/dospatski-prohod-nai-dulgiat-prohod-v-bulgaria/",
-		"start": ""
+		"start": "41.94055675317845, 24.19090929462616"
 	},
 	{
 		"gpx": "gpx/bezvodno.gpx",
 		"name": "Пътят към Безводно",
 		"url": "https://meteo-ride.com/dajdovnitsa-komuniga-borovitsa-dam-pass/",
-		"start": ""
+		"start": "41.67911375246446, 25.2919583094362"
 	},
 	{
 		"gpx": "gpx/rancha.gpx",
 		"name": "Ранчанска седловина",
 		"url": "https://meteo-ride.com/rancha-saddle/",
-		"start": ""
+		"start": "41.78883099395188, 23.935760973467904"
 	},
 	{
 		"gpx": "gpx/rozhen.gpx",
 		"name": "Роженски проход",
 		"url": "https://meteo-ride.com/rozhen-pass-and-nao-rozhen/",
-		"start": ""
+		"start": "41.67481539759126, 24.71031420071298"
 	},
 	{
 		"gpx": "gpx/satovcha.gpx",
 		"name": "Сатовчански проход",
 		"url": "https://meteo-ride.com/satovcha-pass/",
-		"start": ""
+		"start": "41.5664711854327, 23.838765120949102"
 	},
 	{
 		"gpx": "gpx/krastova-gora.gpx",
 		"name": "Кръстова гора",
 		"url": "https://meteo-ride.com/%d0%ba%d1%80%d1%8a%d1%81%d1%82%d0%be%d0%b2%d0%b0-%d0%b3%d0%be%d1%80%d0%b0/",
-		"start": ""
+		"start": "41.84381287285622, 24.847658338986854"
 	},
 	{
 		"gpx": "gpx/tsepina.gpx",
 		"name": "Пътят до крепостта Цепина",
 		"url": "https://meteo-ride.com/road-to-the-cepina-fortress/",
-		"start": ""
+		"start": "42.051143290036705, 24.132152758312582"
 	},
 	{
 		"gpx": "gpx/fotinovski.gpx",
 		"name": "Фотиновски проход",
 		"url": "https://meteo-ride.com/fotinovski-prohod-edin-ot-nai-visokite-v-bulgaria-1801-m/",
-		"start": ""
+		"start": "41.90720296040191, 24.297889322751658"
 	},
 	{
 		"gpx": "gpx/krichim-devin.gpx",
 		"name": "Кричим – Девин",
 		"url": "https://meteo-ride.com/krichim-devin/",
-		"start": ""
+		"start": "42.039416804353515, 24.465497089558777"
 	},
 	{
 		"gpx": "gpx/buynovo.gpx",
@@ -109,14 +115,14 @@
 		"url": "https://meteo-ride.com/serpentines-mochura-8608/",
 		"start": "41.485560708071, 24.847792845803763"
 	},
-	{"// -------------------- СРЕДНА ГОРА --------------------------------   ": "" },
+	{ "// -------------------- СРЕДНА ГОРА --------------------------------   ": "" },
 	{
 		"gpx": "gpx/panagyurski-kolonii.gpx",
 		"name": "Панагюрски колонии",
 		"url": "https://meteo-ride.com/panagyurski-kolonii/",
-		"start": ""
+		"start": "42.516088799919636, 24.18648372873525"
 	},
-	{"// -------------------- СТАРА ПЛАНИНА --------------------------------   ": "" },
+	{ "// -------------------- СТАРА ПЛАНИНА --------------------------------   ": "" },
 	{
 		"gpx": "gpx/beklemeto.gpx",
 		"name": "Троян - Кърнаре (Беклемето)",
@@ -127,33 +133,33 @@
 		"gpx": "gpx/bogoe.gpx",
 		"name": "Проход Богое",
 		"url": "https://meteo-ride.com/prohodat-bogoe-bogoe-pass-shipkovski-prohod/",
-		"start": ""
+		"start": "42.84946456717859, 24.357580768613346"
 	},
 	{
 		"gpx": "gpx/petrohan.gpx",
 		"name": "Петрохан",
 		"url": "https://meteo-ride.com/petrohan-pass/",
-		"start": ""
+		"start": "43.07414411098041, 23.108079942861412"
 	},
 	{
 		"gpx": "gpx/milanovo.gpx",
 		"name": "Пътят до Миланово",
 		"url": "https://meteo-ride.com/patjat-do-milanovo-drujevo-pass/",
-		"start": ""
+		"start": "43.088005987843125, 23.39102574435084"
 	},
 	{
 		"gpx": "gpx/defile.gpx",
 		"name": "Искърско дефиле",
 		"url": "https://meteo-ride.com/iskarski-prolom-road-16/",
-		"start": ""
+		"start": "42.8232020704901, 23.35423787834722"
 	},
 	{
 		"gpx": "gpx/shipka.gpx",
 		"name": "Шипченски проход",
 		"url": "https://meteo-ride.com/shipka-pass/",
-		"start": ""
+		"start": "42.715341583126595, 25.324378313864575"
 	},
-	{"// ------------------- РИЛА --------------------------------   ": "" },
+	{ "// ------------------- РИЛА --------------------------------   ": "" },
 	{
 		"gpx": "gpx/kalin.gpx",
 		"name": "яз. Калин",
@@ -170,83 +176,83 @@
 		"gpx": "gpx/belmeken.gpx",
 		"name": "яз. Белмекен",
 		"url": "https://meteo-ride.com/ushite-pass-road-to-belmeken/",
-		"start": ""
+		"start": "42.2461759550401, 23.93589683896268"
 	},
 	{
 		"gpx": "gpx/yundola.gpx",
 		"name": "Проход Юндола (от Велинград)",
 		"url": "https://meteo-ride.com/prohodat-yundola-pass-route-ii-84/",
-		"start": ""
+		"start": "42.02820579234096, 23.97972685935306"
 	},
-	{"// ------------------- ГЪРЦИЯ --------------------------------   ": "" },
+	{ "// ------------------- ГЪРЦИЯ --------------------------------   ": "" },
 	{
 		"gpx": "gpx/papigo.gpx",
 		"name": "Аристи - Папиго",
 		"url": "https://meteo-ride.com/road-to-papingo-national-park-vikos-aoos/",
-		"start": ""
+		"start": "39.936742993056676, 20.672913646694646"
 	},
 	{
 		"gpx": "gpx/bigla.gpx",
 		"name": "Проход Бигла",
 		"url": "https://meteo-ride.com/vigla-pass/",
-		"start": ""
+		"start": "40.78017050649155, 21.385275675723136"
 	},
 	{
 		"gpx": "gpx/baros.gpx",
 		"name": "Проход Барос",
 		"url": "https://meteo-ride.com/baros-pass-the-routes-in-south-pind/",
-		"start": ""
+		"start": "39.6586554226278, 21.207964219526154"
 	},
 	{
 		"gpx": "gpx/kotili.gpx",
 		"name": "Проход Котили",
 		"url": "https://meteo-ride.com/passo-kotili-zlatnoto-ukrashenie-na-nestram-i-gramos/",
-		"start": ""
+		"start": "40.40925563764968, 21.07090775635295"
 	},
 	{
 		"gpx": "gpx/agalis.gpx",
 		"name": "Проход Агалис",
 		"url": "https://meteo-ride.com/agalis-pass-skritiqt-pat-na-evboa/",
-		"start": ""
+		"start": "38.60622647038791, 23.779443233053254"
 	},
 	{
 		"gpx": "gpx/veluhi.gpx",
 		"name": "Проход Велухи",
 		"url": "https://meteo-ride.com/velouchi-pass-parvenecat-na-evritania-grackiqt-transfagarasan/",
-		"start": ""
+		"start": "38.92243524822935, 21.784787168893637"
 	},
 	{
 		"gpx": "gpx/voras.gpx",
 		"name": "Проход Ворас",
 		"url": "https://meteo-ride.com/voras-pass/",
-		"start": ""
+		"start": "40.80186684598493, 22.028680191134896"
 	},
 	{
 		"gpx": "gpx/gramos.gpx",
 		"name": "Проход Грамос",
 		"url": "https://meteo-ride.com/gramos-pass-divata-krasoata-na-granichnata-planina/",
-		"start": ""
+		"start": "40.391696000722895, 20.83594420489119"
 	},
 	{
-		"gpx":"gpx/plaka.gpx",
+		"gpx": "gpx/plaka.gpx",
 		"name": "Проход Плака",
 		"url": "https://meteo-ride.com/plaka-pass-qz-plastira-vragiana/",
 		"start": "39.25384509640929, 21.715156113028296"
 	},
 	{
-		"gpx":"gpx/niala.gpx",
+		"gpx": "gpx/niala.gpx",
 		"name": "Проход Ниала",
 		"url": "https://meteo-ride.com/nyala-pass-agrafa-surovoto-izpitania/",
 		"start": "39.21737668380583, 21.671425891761732"
 	},
 	{
-		"gpx":"gpx/kaliakuda.gpx",
+		"gpx": "gpx/kaliakuda.gpx",
 		"name": "Проход Калиакуда",
 		"url": "https://meteo-ride.com/legendarniat-prohod-kaliakouda-pass-74-extremni-zavoi/",
 		"start": "38.8071583210408, 21.766866243157462"
 	},
 	{
-		"gpx":"gpx/kymi.gpx",
+		"gpx": "gpx/kymi.gpx",
 		"name": "Пътят до Кими",
 		"url": "https://meteo-ride.com/route-to-kimi-kimi-pass/",
 		"start": "38.59953476578371, 23.877631561568712"
@@ -383,7 +389,7 @@
 		"url": "https://meteo-ride.com/ancient-thera-road/",
 		"start": "36.372765418056254, 25.47914138809623"
 	},
-		{"// ------------------- ГЪРЦИЯ --------------------------------   ": "" },
+	{ "// ------------------- ГЪРЦИЯ --------------------------------   ": "" },
 	{
 		"gpx": "gpx/sh21.gpx",
 		"name": "SH21 - Чафа е Торес",
@@ -406,7 +412,7 @@
 		"gpx": "gpx/muzines.gpx",
 		"name": "Проход Музинес",
 		"url": "https://meteo-ride.com/muzines-pass-sh78-qafa-e-muzines/",
-		"start": "39.924322159467515, 20.191800817187758"	
+		"start": "39.924322159467515, 20.191800817187758"
 	},
 	{
 		"gpx": "gpx/sh22sh23.gpx",
@@ -425,5 +431,12 @@
 		"name": "Проход Логара",
 		"url": "https://meteo-ride.com/llogara-pass/",
 		"start": "40.24711763984487, 19.546302642365696"
+	},
+	{ "// ------------------- МАКЕДОНИЯ --------------------------------   ": "" },
+	{
+		"gpx": "gpx/galichitsa.gpx",
+		"name": "Проходът Галичица",
+		"url": "https://meteo-ride.com/galicica-pass-shose-p504/",
+		"start": "40.94405769853025, 20.789618550596852"
 	}
 ]

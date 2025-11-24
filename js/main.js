@@ -205,11 +205,10 @@ async function readGpxFile(file, name, url, startPoint) {
        map.fitBounds(t.layer.getBounds());                   
        popup = openPopup(e, popupHtml);
     });  
-    t.layer.on("mouseover", (e) => {    
-      if(getZoom() < 14){              
-        popup = openPopup(e, popupHtml);
-      }
-   });    
+     t.layer.on("mouseover", (e) => {
+         popup = openPopup(e, popupHtml);
+     });   
+     
     // t.layer.on("mouseout", () => { 
     //   setTimeout(() => {
     //     popup.closePopup();
