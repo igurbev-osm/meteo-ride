@@ -1,4 +1,11 @@
-import { mapInit, mapTiles, trackListUrl, trackConf } from './config.js';
+const configPath =
+  document.querySelector('meta[name="app-config"]')?.content ?? "./js/config.js";
+
+const configUrl = new URL(configPath, window.location.href);
+
+const {
+  mapInit, mapTiles, trackListUrl, trackConf
+} = await import(configUrl.href);
 import {intersects, bgBounds, sleep, computeStatsForCoords, getStartPointFromGeoJSON} from './utils.js';
 
 
